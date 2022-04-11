@@ -45,11 +45,11 @@ func initLog(LogConfig LogConfig) *zap.Logger {
 		Compress:   false,   // 是否压缩
 	}
 	encoderConfig := zapcore.EncoderConfig{
-		MessageKey:     "msg",
-		LevelKey:       "level",
-		TimeKey:        "time",
-		NameKey:        "logger",
-		CallerKey:      "file",
+		MessageKey: "msg",
+		LevelKey:   "level",
+		//TimeKey:        "time",
+		//NameKey:        "logger",
+		//CallerKey:      "file",
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
@@ -93,7 +93,7 @@ func (l *Logger) Log(level log.Level, keyvals ...interface{}) error {
 	for i := 0; i < len(keyvals); i += 2 {
 		data = append(data, zap.Any(fmt.Sprint(keyvals[i]), keyvals[i+1]))
 	}
-
+	//fmt.Printf("%+v",data)
 	switch level {
 	case log.LevelDebug:
 		l.log.Debug("", data...)
