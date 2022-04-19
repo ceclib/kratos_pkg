@@ -23,6 +23,10 @@ type LogConfig struct {
 	Debug bool
 	//CallerSkip
 	CallerSkip int
+	//日志级别
+	Level int
+	// 是否在开发环境
+	IsDev bool
 }
 
 // NewLogger 返回一个日志实例
@@ -35,7 +39,6 @@ func initLog(LogConfig LogConfig) *zap.Logger {
 	// 根据配置类引入
 	logPath := LogConfig.LogPath
 	name := LogConfig.AppName
-	debug := LogConfig.Debug
 
 	hook := lumberjack.Logger{
 		Filename:   logPath, // 日志文件路径
@@ -60,10 +63,11 @@ func initLog(LogConfig LogConfig) *zap.Logger {
 	}
 	// 设置日志级别
 	atomicLevel := zap.NewAtomicLevel()
-	atomicLevel.SetLevel(zap.DebugLevel)
+	//atomicLevel.SetLevel(zap.DebugLevel)
+	atomicLevel.SetLevel(zapcore.Level(LogConfig.Level))
 	var writes = []zapcore.WriteSyncer{zapcore.AddSync(&hook)}
 	// 如果是开发环境，同时在控制台上也输出
-	if debug {
+	if LogConfig.IsDev {
 		writes = append(writes, zapcore.AddSync(os.Stdout))
 	}
 	core := zapcore.NewCore(

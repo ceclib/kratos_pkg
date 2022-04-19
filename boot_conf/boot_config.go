@@ -11,7 +11,15 @@ type NacosConfig struct {
 	NameSpaceID string
 }
 
+type LogConfig struct {
+	LogPath string
+	AppName string
+	Level   int
+	IsDev   bool //是否在开发环境
+}
+
 // BootConfig 启动依赖的基础配置
 type BootConfig struct {
 	NacosConfig NacosConfig
+	LogConfig   LogConfig
 }
