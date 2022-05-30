@@ -1,4 +1,4 @@
-module gitee.com/ceclib/kratos_pkg
+module github.com/ceclib/kratos_pkg
 
 go 1.17
 
