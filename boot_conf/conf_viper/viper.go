@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"gitee.com/ceclib/kratos_pkg/boot_conf"
+	"github.com/ceclib/kratos_pkg/boot_conf"
 	"github.com/spf13/viper"
 )
 
